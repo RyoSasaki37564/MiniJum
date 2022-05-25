@@ -187,7 +187,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eafca9b9811066340ae7c4734a43e6f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _bullet: {fileID: 2421527817346044555, guid: 3e7ca0d32a28e824a849776f8cf65e6a, type: 3}
+  _hp: 0
+  _attak: 0
   _moveSpeed: 3
+  _requiredExp: 
 --- !u!1 &661125449
 GameObject:
   m_ObjectHideFlags: 0
