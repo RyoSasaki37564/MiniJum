@@ -24,6 +24,8 @@ public class Player : MonoBehaviour
 
     private Rigidbody2D _rb;
 
+    public int Attak { get => _attak; private set => _attak = value; }
+
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
