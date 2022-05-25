@@ -6,9 +6,17 @@ public class Player : MonoBehaviour
 {
     [SerializeField, Tooltip("移動速度")]
         float _moveSpeed;
+    [SerializeField, Tooltip("次のレベルまでの必要経験値")]
+        List<int> _requiredExp = new List<int>();
+
+    [Tooltip("進行方向　1が上、-1が下")]
+        private int _dir;
+    [Tooltip("現在の経験値")]
+        private int _exp;
+    [Tooltip("現在のレベル")]
+        private int _level;
 
     private Rigidbody2D _rb;
-    private int _dir;
 
     private void Awake()
     {
@@ -23,5 +31,21 @@ public class Player : MonoBehaviour
     private void FixedUpdate()
     {
         _rb.velocity = Vector3.up * _dir * _moveSpeed;
+    }
+
+    private void GetExp(int getExp)
+    {
+        _exp += getExp;
+
+        if(_exp >= _requiredExp[_level])
+        {
+            LevelUp();
+        }
+    }
+
+    private void LevelUp()
+    {
+        _exp -= _requiredExp[_level];
+        _level++;
     }
 }
