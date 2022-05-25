@@ -70,5 +70,9 @@ public class Player : MonoBehaviour
     public void OnDamaged(int damage)
     {
         _hp -= damage;
+        if(_hp < 0)
+        {
+            GameManager.GameFinish();
+        }
     }
 }
