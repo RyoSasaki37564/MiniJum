@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    [SerializeField] float m_point;
+    [SerializeField] int m_point;
 
     [SerializeField] bool m_isPlayerBullet = false;
 
@@ -15,26 +15,45 @@ public class Bullet : MonoBehaviour
 
     Rigidbody2D m_rb;
 
-    [SerializeField] AudioSource m_se = default;
+
+    public static int m_eneLevel = 0;
+
+    int hp;
 
     Player m_p;
 
-    Enemy m_e;
+    public Enemy m_e;
 
     // Start is called before the first frame update
     void Start()
     {
         m_rb = GetComponent<Rigidbody2D>();
 
-        if (!m_isPlayerBullet)
+        if (m_isPlayerBullet == true)
         {
             m_speed = -m_speed;
         }
         else
         {
+            hp = 1 + m_eneLevel;
             m_p = FindObjectOfType<Player>().GetComponent<Player>();
         }
 
+    }
+    private void OnEnable()
+    {
+        if(!m_isPlayerBullet)
+        {
+
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (!m_isPlayerBullet)
+        {
+
+        }
     }
 
     // Update is called once per frame
@@ -45,24 +64,35 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(!m_isPlayerBullet)
+        if(m_isPlayerBullet == false)
         {
             //敵の弾の処理
             if(collision.tag == "Wall")
             {
-                
+                m_p.OnDamaged(m_point);
                 Destroy(this.gameObject);
+            }
+            else if (collision.tag == "PlayerBullet")
+            {
+                Damage(m_point);
             }
         }
         else
         {
             //プレイヤーの弾の処理
-            if (collision.tag == "EnemyBullet")
+            if (collision.tag == "Wall")
             {
-
                 Destroy(this.gameObject);
             }
-            else if (collision.tag == "Wall")
+        }
+    }
+
+    void Damage(int atkPoint)
+    {
+        if (!m_isPlayerBullet)
+        {
+            hp -= atkPoint;
+            if (hp <= 0)
             {
                 Destroy(this.gameObject);
             }
