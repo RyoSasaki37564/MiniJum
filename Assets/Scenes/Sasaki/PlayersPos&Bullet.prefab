@@ -147,6 +147,7 @@ MonoBehaviour:
   m_point: 1
   m_isPlayerBullet: 1
   hp: 0
+  m_DeathSE: {fileID: 0}
 --- !u!95 &4714070229479537665
 Animator:
   serializedVersion: 3
