@@ -11,17 +11,30 @@ public class Bullet : MonoBehaviour
 
     [SerializeField] bool m_isPlayerBullet = false;
 
-    float m_speed;
+    float m_speed = 1f;
 
     Rigidbody2D m_rb;
+
+    [SerializeField] AudioSource m_se = default;
+
+    Player m_p;
+
+    Enemy m_e;
 
     // Start is called before the first frame update
     void Start()
     {
-        if (m_isPlayerBullet)
+        m_rb = GetComponent<Rigidbody2D>();
+
+        if (!m_isPlayerBullet)
         {
             m_speed = -m_speed;
         }
+        else
+        {
+            m_p = FindObjectOfType<Player>().GetComponent<Player>();
+        }
+
     }
 
     // Update is called once per frame
@@ -37,7 +50,8 @@ public class Bullet : MonoBehaviour
             //敵の弾の処理
             if(collision.tag == "Wall")
             {
-
+                
+                Destroy(this.gameObject);
             }
         }
         else
@@ -46,8 +60,12 @@ public class Bullet : MonoBehaviour
             if (collision.tag == "EnemyBullet")
             {
 
+                Destroy(this.gameObject);
             }
-
+            else if (collision.tag == "Wall")
+            {
+                Destroy(this.gameObject);
+            }
         }
     }
 }

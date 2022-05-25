@@ -8,9 +8,15 @@ public class EnemyGenerater : MonoBehaviour
 
     float m_time = default;
 
+    [SerializeField] GameObject m_enePos = default;
+
     [SerializeField] Enemy m_enemyIcon = default;
 
+    [SerializeField] GameObject[] m_posList = new GameObject[4];
+
     int m_nowLevel = 1;
+
+    int m_nowPosIndex = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -18,10 +24,15 @@ public class EnemyGenerater : MonoBehaviour
         ReActor();
     }
 
+    private void OnEnable()
+    {
+        
+    }
+
     IEnumerator EneGene(float time)
     {
         yield return new WaitForSeconds(time);
-        Instantiate(m_enemyIcon, this.gameObject.transform.position, Quaternion.identity);
+        m_enePos.transform.position = m_posList[m_nowPosIndex].transform.position;
         m_enemyIcon.m_eneLevel = m_nowLevel;
         ReActor();
     }
@@ -29,6 +40,7 @@ public class EnemyGenerater : MonoBehaviour
     void ReActor()
     {
         int rand = Random.Range(0, 8);
+        m_nowPosIndex = rand / 2;
         if(rand == 1)
         {
             m_nowLevel++;

@@ -8,33 +8,26 @@ public class Enemy : MonoBehaviour
 
     public int m_eneLevel;
 
+    int hp;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        hp = 1 + m_eneLevel;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    void Shot()
+    public void Shot()
     {
         Instantiate(m_eneBullet, this.transform.position, Quaternion.identity);
     }
 
-    /*
-    void LevelUp(int getExp)
+    public void Damage(int atkPoint, GameObject obj)
     {
-        exp += getExp;
-        if(exp >= list[level])
+        hp -= atkPoint;
+        if(hp <= 0)
         {
-            exp -= list[level];
-            level++;
+            Destroy(obj);
         }
     }
-    */
+
 }
