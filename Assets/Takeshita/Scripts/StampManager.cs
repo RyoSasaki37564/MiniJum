@@ -9,7 +9,7 @@ public class StampManager : MonoBehaviour
     [SerializeField, Tooltip("スタンプ発動に必要なポイント")]
         int _requiredPoint;
     [SerializeField, Tooltip("ためておけるスタンプの数")]
-        int _stockCapacity;
+        int _stockCapacity = 3;
 
     [Tooltip("現在のポイント")]
         private int _point;
