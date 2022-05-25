@@ -18,11 +18,11 @@ public class Bullet : MonoBehaviour
 
     public static int m_eneLevel = 0;
 
-    int hp;
+    [SerializeField] int hp;
 
     Player m_p;
 
-    public Enemy m_e;
+    Stamp m_stamp;
 
     // Start is called before the first frame update
     void Start()
@@ -42,9 +42,10 @@ public class Bullet : MonoBehaviour
     }
     private void OnEnable()
     {
-        if(!m_isPlayerBullet)
+        if (!m_isPlayerBullet)
         {
-
+            m_stamp = FindObjectOfType<Stamp>().GetComponent<Stamp>();
+            m_stamp.OnStampExploded += ZettaiShinu;
         }
     }
 
@@ -52,7 +53,10 @@ public class Bullet : MonoBehaviour
     {
         if (!m_isPlayerBullet)
         {
-
+            {
+                m_stamp = FindObjectOfType<Stamp>().GetComponent<Stamp>();
+                m_stamp.OnStampExploded -= ZettaiShinu;
+            }
         }
     }
 
@@ -62,30 +66,35 @@ public class Bullet : MonoBehaviour
         m_rb.velocity = new Vector2(m_speed, 0);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(m_isPlayerBullet == false)
+
+        if (m_isPlayerBullet == false)
         {
             //敵の弾の処理
-            if(collision.tag == "Wall")
+            if (collision.gameObject.tag == "Wall")
             {
                 m_p.OnDamaged(m_point);
                 Destroy(this.gameObject);
             }
-            else if (collision.tag == "PlayerBullet")
+            else if (collision.gameObject.tag == "PlayerBullet")
             {
+
+                Debug.Log(gameObject.name);
                 Damage(m_point);
+                Destroy(collision.gameObject);
             }
         }
         else
         {
             //プレイヤーの弾の処理
-            if (collision.tag == "Wall")
+            if (collision.gameObject.tag == "Wall")
             {
                 Destroy(this.gameObject);
             }
         }
     }
+
 
     void Damage(int atkPoint)
     {
@@ -97,5 +106,10 @@ public class Bullet : MonoBehaviour
                 Destroy(this.gameObject);
             }
         }
+    }
+
+    void ZettaiShinu()
+    {
+        Destroy(this.gameObject);
     }
 }

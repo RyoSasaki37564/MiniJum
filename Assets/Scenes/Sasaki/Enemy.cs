@@ -6,16 +6,18 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField] GameObject m_eneBullet = default;
 
-
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
+    //[SerializeField] GameObject m_ojisanKobun = default;
 
     public void Shot()
     {
-        var x =  Instantiate(m_eneBullet, this.transform.position, Quaternion.identity);
+    //    var i = Random.Range(0, 10);
+    //    if(i < 2)
+    //    {
+    //        Instantiate(m_ojisanKobun, this.transform.position, Quaternion.identity);
+    //    }
+    //    else
+    //    {
+            Instantiate(m_eneBullet, this.transform.position, Quaternion.identity);
+        //}
     }
-
-
 }

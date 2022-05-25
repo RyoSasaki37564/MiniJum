@@ -12,6 +12,7 @@ public class Stamp : MonoBehaviour
         if (OnStampExploded != null)
         {
             OnStampExploded();
+            Destroy(gameObject);
         }
     }
 }

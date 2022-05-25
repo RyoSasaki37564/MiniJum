@@ -37,10 +37,8 @@ public class EnemyGenerater : MonoBehaviour
         if(rand == 1)
         {
             Bullet.m_eneLevel++;
-            Debug.LogWarning($"Now Level Up {Bullet.m_eneLevel}.");
         }
         m_time = Random.Range(m_minTime, m_maxTime);
-        Debug.Log(m_time);
         StartCoroutine(EneGene(m_time));
     }
 }
