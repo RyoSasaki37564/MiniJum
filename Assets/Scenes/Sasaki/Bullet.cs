@@ -24,14 +24,10 @@ public class Bullet : MonoBehaviour
 
     Stamp m_stamp;
 
-    [SerializeField] GameObject m_DeathSE = default;
-
     // Start is called before the first frame update
     void Start()
     {
         m_rb = GetComponent<Rigidbody2D>();
-
-        m_DeathSE.SetActive(false);
 
         if (m_isPlayerBullet == true)
         {
@@ -107,8 +103,6 @@ public class Bullet : MonoBehaviour
             hp -= atkPoint;
             if (hp <= 0)
             {
-                m_DeathSE.SetActive(true);
-                GameManager.KilledEnemy++;
                 Destroy(this.gameObject);
             }
         }
